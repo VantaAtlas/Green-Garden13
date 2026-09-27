@@ -1,8 +1,8 @@
-# 格林花园餐厅 · V06
+# 格林花园餐厅 · V07
 
-在线查看：https://vantaatlas.github.io/Green-Garden13/v06.html
+在线查看：https://vantaatlas.github.io/Green-Garden13/v07.html
 
-- 墙950 mm；主窗1490 mm；顶部60 mm；整窗1550 mm。
+- 墙950 mm；主窗1490 mm；顶部60 mm纯铝合金型材（无玻璃）；整窗1550 mm。
 - 主窗与上部共用连续一体外框，进深110 mm，不是另叠一套独立窗框。
 - 西侧整面实墙，无玻璃、无窗框；东侧保留侧窗；包含朝北屋内透视。
 - 吊顶厚50 mm，与长城板同坡度、平行分离，净空暂定60 mm。
