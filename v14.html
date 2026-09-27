@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>餐厅阳光房 · 推拉窗三维方案</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#edf0ef;color:#21352f;font:14px/1.6 "Microsoft YaHei",sans-serif}header{padding:25px 34px;border-bottom:1px solid #d4ddda;display:flex;justify-content:space-between;align-items:center}h1{font-size:23px;font-weight:600;margin:0}header p{margin:3px 0 0;color:#687b73}.tag{font-size:12px;letter-spacing:2px;color:#63786f}main{display:grid;grid-template-columns:minmax(0,1fr) 310px;min-height:calc(100vh - 111px)}.stage{position:relative;min-width:0;background:radial-gradient(ellipse at 50% 40%,#fff,#e2e9e5)}canvas{display:block;width:100%;height:calc(100vh - 112px);min-height:540px;touch-action:none;cursor:grab}canvas:active{cursor:grabbing}.tools{position:absolute;left:26px;top:22px;display:flex;gap:6px;flex-wrap:wrap}button{background:#ffffffdb;border:1px solid #c9d5cf;padding:9px 15px;border-radius:6px;color:#365347;cursor:pointer;font:inherit}button:hover,button.active{background:#244c3d;color:#fff;border-color:#244c3d}.hint{position:absolute;bottom:18px;left:26px;color:#6c8076;font-size:12px;pointer-events:none}aside{background:#f9fbfa;border-left:1px solid #d4ddda;padding:26px 24px}h2{font-size:15px;margin:0 0 16px}section{padding-bottom:23px;margin-bottom:23px;border-bottom:1px solid #dce4df}.row{display:flex;justify-content:space-between;margin:9px 0;gap:8px}.muted{color:#77887f}label{display:block;margin:15px 0 7px}input[type=range]{width:100%;accent-color:#315e4b}input[type=checkbox]{accent-color:#315e4b}output{float:right;color:#315e4b;font-variant-numeric:tabular-nums}.note{font-size:12px;color:#718278;line-height:1.9}.legend{display:flex;gap:15px;font-size:12px;margin-top:13px}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#22a6b0;margin-right:5px}.dot.frame{background:#505b58}select{width:100%;padding:8px;border:1px solid #c9d5cf;background:white;border-radius:4px;color:#365347}footer{font-size:12px;color:#7b8c83}@media(max-width:800px){header{padding:18px}header .tag{display:none}main{grid-template-columns:1fr}canvas{height:57vh;min-height:390px}aside{border-left:0;padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:20px}section{margin:0}.tools{left:15px;top:15px}button{padding:7px 11px}.hint{left:15px}footer{grid-column:1/-1}}@media(max-width:460px){aside{grid-template-columns:1fr}h1{font-size:20px}}
+</style></head>
+<body>
+<header><div><h1>餐厅阳光房 <span style="font-weight:400;color:#82948a">/</span> 推拉窗方案</h1><p>东侧斜上亮固定玻璃 G7 · 下部2扇移窗 · 侧面配1480 mm纱帘 · 北侧西餐厅吧台</p></div><span class="tag">V14 · 侧面吧台</span></header>
+<main><div class="stage"><canvas id="view" aria-label="可拖动旋转的阳光房三维模型，正面四扇推拉窗，西侧中段固定玻璃，东侧两扇推拉窗及斜边收口，南高北低长城板屋顶">三维模型需要支持 Canvas 的浏览器。</canvas><div class="tools"><button class="active" data-view="perspective">三维</button><button data-view="front">正面</button><button data-view="side">东侧窗</button><button data-view="top">俯视</button><button data-view="interior">屋内视角</button><button id="reset">复位</button></div><div class="hint">室外拖动旋转 · 屋内视角朝北看，西侧玻璃在左 · 室内也可拖动移动</div></div>
+<aside><section><h2>01 / 确认尺寸 · mm</h2><div class="row"><span class="muted">一体外框进深</span><span>110 mm</span></div><div class="row"><span class="muted">墙体高度</span><span>950 mm</span></div><div class="row"><span class="muted">墙＋整套窗</span><span>2500 mm</span></div><div class="row"><span class="muted">顶部纯铝合金型材</span><span>60 mm</span></div><div class="row"><span class="muted">主窗总高</span><span>1490 mm</span></div><div class="row"><span class="muted">正面总宽</span><span>2720 mm</span></div><div class="row"><span class="muted">北侧总高</span><span id="totalHeight">1550 mm</span></div><div class="row"><span class="muted">侧面进深</span><span>1350 mm</span></div><div class="row"><span class="muted">正面分格</span><span>4扇等分（名义680）</span></div><div class="row"><span class="muted">侧面斜边高差</span><span>90 mm</span></div><div class="legend"><span><i class="dot frame"></i>铝合金</span><span><i class="dot"></i>玻璃</span></div></section>
+<section><h2>02 / 推拉与纱帘</h2><label><input id="curtains" type="checkbox" checked> 显示纱帘及屋顶固定轨道</label><label for="curtainOpen">纱帘打开<output id="curtainValue">65%</output></label><input id="curtainOpen" type="range" min="0" max="100" value="65"><label for="opening">正面4扇推拉开合<output id="openValue">0%</output></label><input id="opening" type="range" min="0" max="100" value="0"><label for="eastOpening">东侧2扇推拉开合<output id="eastValue">0%</output></label><input id="eastOpening" type="range" min="0" max="100" value="0"><p class="note">正面4扇等分、东侧2扇等分，均为双轨推拉。滑块演示窗扇重叠开启；窗扇加工宽度须计入边框与搭接量。东侧上方斜边为固定铝合金收口，下方窗扇保持矩形；侧面玻璃增设沿屋顶坡度的固定纱帘轨道与双幅1480 mm纱帘。</p><label for="finish">型材颜色</label><select id="finish"><option value="graphite">石墨灰</option><option value="bronze">暖香槟</option><option value="ivory">象牙白</option></select></section>
+<section><h2>03 / 屋顶、吊顶与吧台</h2><div class="row"><span class="muted">北窗内侧至吊顶退让</span><span>200 mm（暂定）</span></div><div class="row"><span class="muted">板与吊顶净空（暂定）</span><span>约60 mm</span></div><label for="drop">侧窗斜边高差<output id="dropValue">90 mm</output></label><input id="drop" type="range" min="0" max="180" step="10" value="90"><div class="row note"><span>南高 → 北低</span><span id="slopeValue">坡度 6.7%</span></div><label><input id="roof" type="checkbox" checked> 显示长城板屋顶</label><label><input id="ceiling" type="checkbox" checked> 显示同坡度吊顶（厚50 mm）</label><label><input id="bar" type="checkbox" checked> 显示北侧西餐厅吧台</label><label><input id="walls" type="checkbox" checked> 显示墙体（墙高950 mm）</label><label><input id="dimensions" type="checkbox" checked> 显示尺寸与方向</label></section>
+<footer>V14：侧面按所附图示表现为“下部2扇移窗＋上部斜固定玻璃G7”，斜玻璃沿屋顶坡度走，低端约60 mm、高端约150 mm，具体斜边高度按现场复核；西侧整面实墙无窗。正面4扇移窗，东侧玻璃配双幅1480 mm纱帘，北侧增加西餐厅吧台示意，室内视角默认朝北且可拖动。吊顶厚50 mm，与长城板平行，板下净空暂定60 mm；纱帘轨道固定在长城板下方。斜玻璃尺寸、边框、轨道承载、防水及收口由施工方深化。</footer></aside></main>
+<script>
+(()=>{'use strict';
+const canvas=document.getElementById('view'),ctx=canvas.getContext('2d'),$=id=>document.getElementById(id);
+let yaw=-.58,pitch=.42,interiorYaw=0,interiorPitch=0,zoom=1,shapes=[],labels=[],W,H,drag=null;
+const state={curtains:true,curtainOpen:65,interior:false,westGlass:false,opening:0,eastOpening:0,transom:60,drop:90,walls:true,ceiling:true,bar:true,roof:true,dimensions:true,finish:'graphite'};
+const palette={graphite:['#4c5654','#737e7a'],bronze:['#8c7c61','#b5a78c'],ivory:['#cdd1c8','#edf0e6']};
+function project(p){if(state.interior){const cx=p[0]-1360,cz=p[2],xx=cx*Math.cos(interiorYaw)-cz*Math.sin(interiorYaw),viewZ=cz*Math.cos(interiorYaw)+cx*Math.sin(interiorYaw),depth=2700-viewZ,f=Math.min(W,H)*.84*zoom;return [W/2+xx*f/depth,H*.52-(p[1]-700)*f/depth+interiorPitch*depth*.08,depth]}let x=p[0]-1360,y=p[1]-(400+state.transom/2),z=p[2]-1400;let xx=x*Math.cos(yaw)+z*Math.sin(yaw),zz=-x*Math.sin(yaw)+z*Math.cos(yaw);let yy=y*Math.cos(pitch)+zz*Math.sin(pitch),depth=-y*Math.sin(pitch)+zz*Math.cos(pitch);let s=Math.min(W/5600,H/4700)*zoom;return [W*.5+xx*s,H*.52-yy*s,depth]}
+function face(p,color,stroke){if(state.interior){let out=[];for(let i=0;i<p.length;i++){const a=p[i],b=p[(i+1)%p.length],ina=a[2]<=2500,inb=b[2]<=2500;if(ina)out.push(a);if(ina!==inb){let t=(2500-a[2])/(b[2]-a[2]);out.push(a.map((v,j)=>v+t*(b[j]-v)))}}p=out;if(p.length<3)return;}shapes.push({p,color,stroke,d:p.reduce((s,a)=>s+project(a)[2],0)/p.length})}
+function box(x,y,z,w,h,d,color){let a=[x,y,z],b=[x+w,y,z],c=[x+w,y+h,z],e=[x,y+h,z],f=[x,y,z+d],g=[x+w,y,z+d],i=[x+w,y+h,z+d],j=[x,y+h,z+d];face([a,b,c,e],color,'#273e3930');face([f,j,i,g],color,'#273e3930');face([e,c,i,j],color===palette[state.finish][0]?palette[state.finish][1]:color,'#273e3930');face([a,f,g,b],color);face([a,e,j,f],color,'#273e3930');face([b,g,i,c],color,'#273e3930')}
+function line(points,color,width=1,dash=[]){const p=points.map(project);ctx.beginPath();p.forEach((a,i)=>i?ctx.lineTo(a[0],a[1]):ctx.moveTo(a[0],a[1]));ctx.strokeStyle=color;ctx.lineWidth=width;ctx.setLineDash(dash);ctx.stroke();ctx.setLineDash([])}
+function text(p,t,color='#496558'){let a=project(p);ctx.font='12px "Microsoft YaHei",sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';let w=ctx.measureText(t).width;ctx.fillStyle='#f6faf7ed';ctx.fillRect(a[0]-w/2-7,a[1]-11,w+14,22);ctx.fillStyle=color;ctx.fillText(t,a[0],a[1])}
+function dim(a,b,t){line([a,b],'#84988c');const pa=project(a),pb=project(b);ctx.strokeStyle='#84988c';for(const p of [pa,pb]){ctx.beginPath();ctx.moveTo(p[0]-4,p[1]+5);ctx.lineTo(p[0]+4,p[1]-5);ctx.stroke()}text(a.map((v,i)=>(v+b[i])/2),t)}
+function frontPane(x,w,y,h,z,movable=false){const col=palette[state.finish][0],f=movable?27:22;face([[x+f,y+f,z],[x+w-f,y+f,z],[x+w-f,y+h-f,z],[x+f,y+h-f,z]],'rgba(92,174,184,.24)','#71a7ab80');box(x,y,z-18,f,h,36,col);box(x+w-f,y,z-18,f,h,36,col);box(x,y,z-18,w,f,36,col);box(x,y+h-f,z-18,w,f,36,col);if(movable){box(x+w-45,y+h*.45,z-43,10,110,18,'#bbc5c0');box(x+w-45,y+h*.45,z-51,10,12,26,col);box(x+w-45,y+h*.45+98,z-51,10,12,26,col)}}
+function slopedRail(x,z0,z1,y0,y1,w,d,color){face([[x,y0,z0],[x,y1,z1],[x,y1+w,z1],[x,y0+w,z0]],color,'#273e3930');face([[x+d,y0,z0],[x+d,y0+w,z0],[x+d,y1+w,z1],[x+d,y1,z1]],color,'#273e3930');face([[x,y0,z0],[x+d,y0,z0],[x+d,y1,z1],[x,y1,z1]],color);face([[x,y0+w,z0],[x,y1+w,z1],[x+d,y1+w,z1],[x+d,y0+w,z0]],color)}
+function build(){shapes=[];const c=palette[state.finish][0],top=z=>1490+state.transom+state.drop*z/1350,roofTop=z=>top(z)+50;
+box(-250,-1020,-80,3220,70,3020,'#d7d7c9');
+if(state.walls){
+box(-180,-950,0,3080,950,150,'#e0d9c8');
+for(const x of [-180,2720]){
+box(x,-950,0,180,950,2940,'#e8e3d6');
+face([[x,0,1350],[x,0,2940],[x,top(2940),2940],[x,top(1350),1350]],'#e2ddcf','#b7b8a9');
+face([[x+180,0,1350],[x+180,top(1350),1350],[x+180,top(2940),2940],[x+180,0,2940]],'#eae6dc','#b7b8a9');
+}
+box(-180,-950,2790,3080,top(2790)+950,150,'#ded9cd');
+box(-190,-30,-25,3100,30,210,'#c3b99f');
+for(const x of [-180,0])face([[x,0,0],[x,0,1350],[x,top(1350),1350],[x,top(0),0]],'#e8e3d6','#b7b8a9');
+face([[-180,top(0),0],[0,top(0),0],[0,top(1350),1350],[-180,top(1350),1350]],'#ded9cc');
+// West wall: retain the wall, with one centred fixed-glass opening.
+if(state.westGlass){
+const wx=-191,wz0=720,wz1=1320,wy0=950,wy1=1490;
+face([[wx,wy0,wz0],[wx,wy0,wz1],[wx,wy1,wz1],[wx,wy1,wz0]],'rgba(92,174,184,.30)','#71a7ab80');
+box(wx-12,wy0-24,wz0-22,125,24,644,c);box(wx-12,wy1,wz0-22,125,24,644,c);
+box(wx-12,wy0,wz0-22,125,wy1-wy0,24,c);box(wx-12,wy0,wz1-2,125,wy1-wy0,24,c);
+}
+}
+// One continuous 110 mm-deep frame shared by main glazing and the upper light.
+box(0,0,0,2720,40,110,c);
+for(const x of [0,2680])box(x,0,0,40,1550,110,c);
+box(0,1490,0,2720,60,110,c);
+box(0,1470,0,2720,20,110,c);
+// Four equal sliding sashes, alternating on two tracks. No fixed center pane.
+for(let i=0;i<4;i++){
+const dx=(i%2===0?1:-1)*state.opening*3.275;
+frontPane(40+i*655+dx,675,40,1430,i%2===0?25:75,true);
+}
+for(const z of [3,38,76])box(35,40,z,2650,7,7,'#a0ada6');
+// East face: two rectangular sliding sashes below a centred fixed-glass band.
+box(2610,0,110,110,40,1240,c);box(2610,0,1310,110,top(1350),40,c);
+box(2610,1470,110,110,20,1200,c);
+for(const x of [2610,2720])face([[x,1490,110],[x,1490,1310],[x,top(1310),1310],[x,top(110),110]],c);
+face([[2610,top(110),110],[2720,top(110),110],[2720,top(1310),1310],[2610,top(1310),1310]],palette[state.finish][1]);
+// Side elevation like G7/G8: a sloping fixed upper glass above the two lower sashes.
+const gz0=80,gz1=1270;
+face([[2721,1490,gz0],[2721,1490,gz1],[2721,top(gz1)-18,gz1],[2721,top(gz0)-18,gz0]],'rgba(92,174,184,.24)','#71a7ab80');
+for(const z of [gz0,gz1])box(2610,1490,z,110,Math.max(18,top(z)-1490),18,c);
+face([[2610,1490,gz0],[2720,1490,gz0],[2720,top(gz0)-18,gz0],[2610,top(gz0)-18,gz0]],c);
+face([[2610,1490,gz1],[2720,1490,gz1],[2720,top(gz1)-18,gz1],[2610,top(gz1)-18,gz1]],c);
+for(let i=0;i<2;i++){
+const start=shapes.length;
+frontPane(110+i*590+(i===0?1:-1)*state.eastOpening*2.95,610,40,1430,i===0?-35:15,true);
+// Rotate each front-oriented sash into the east plane, then recalculate depth.
+for(let j=start;j<shapes.length;j++){
+shapes[j].p=shapes[j].p.map(p=>[2670+p[2],p[1],p[0]]);
+shapes[j].d=shapes[j].p.reduce((sum,p)=>sum+project(p)[2],0)/shapes[j].p.length;
+}
+}
+for(const x of [2635,2685])box(x,40,110,7,7,1200,'#a0ada6');
+if(state.ceiling){
+const z0=310,z1=2790,low=z=>roofTop(z)-110,high=z=>roofTop(z)-60;
+// Parallel sloping slab, set back 200 mm from the north frame's inner face.
+face([[0,low(z0),z0],[2610,low(z0),z0],[2610,low(z1),z1],[0,low(z1),z1]],'#eee9df','#ccc6b8');
+face([[0,high(z0),z0],[0,high(z1),z1],[2610,high(z1),z1],[2610,high(z0),z0]],'#f3eee4','#ccc6b8');
+for(const x of [0,2610])face([[x,low(z0),z0],[x,low(z1),z1],[x,high(z1),z1],[x,high(z0),z0]],'#d9d2c4','#b9b4a9');
+for(const z of [z0,z1])face([[0,low(z),z],[2610,low(z),z],[2610,high(z),z],[0,high(z),z]],'#d9d2c4','#b9b4a9');
+}
+if(state.curtains){
+const tz=210,railY=roofTop(tz)-35;
+box(65,railY,tz-15,2590,18,30,'#c4c6be');
+for(let x=100;x<2650;x+=420)box(x,railY+18,tz-8,16,17,16,'#979f98');
+const curtainH=1480,width=1295*(1-state.curtainOpen*.0078),frontCurtainBottom=Math.max(0,railY-6-curtainH);
+for(const side of [0,1]){let start=side?2655-width:65;
+for(let i=0;i<32;i++){let x0=start+width*i/32,x1=start+width*(i+1)/32,z0=tz+28+13*Math.cos(i*Math.PI/2),z1=tz+28+13*Math.cos((i+1)*Math.PI/2);
+face([[x0,frontCurtainBottom,z0],[x1,frontCurtainBottom,z1],[x1,railY-6,z1],[x0,railY-6,z0]],i%4<2?'rgba(252,249,237,.66)':'rgba(222,225,214,.55)','rgba(185,191,180,.20)');
+}}
+// East side glazing also receives a ceiling-fixed sheer curtain, following the roof slope.
+const sz0=110,sz1=1310,srailY0=roofTop(sz0)-42,srailY1=roofTop(sz1)-42;
+slopedRail(2602,sz0,sz1,srailY0,srailY1,18,18,'#c4c6be');
+for(let z=150;z<1310;z+=360)slopedRail(2604,z,z+18,roofTop(z)-24,roofTop(z)-24,17,14,'#979f98');
+const sideWidth=600*(1-state.curtainOpen*.0078);
+for(const side of [0,1]){const start=side?1310-sideWidth:110,end=start+sideWidth;
+for(let i=0;i<24;i++){const z0=start+(end-start)*i/24,z1=start+(end-start)*(i+1)/24,y0=Math.max(0,roofTop(z0)-58),y1=Math.max(0,roofTop(z1)-58),b0=Math.max(0,y0-curtainH),b1=Math.max(0,y1-curtainH);
+face([[2600,b0,z0],[2600,b1,z1],[2600,y1,z1],[2600,y0,z0]],i%4<2?'rgba(252,249,237,.66)':'rgba(222,225,214,.55)','rgba(185,191,180,.20)');
+}}
+}
+if(state.bar){
+// North wall: a warm wood western-restaurant bar, sized as a visual proposal.
+const bx=360,bz=210,bw=2000,bd=560,topY=1050;
+box(bx,topY,bz,bw,70,bd,'#a98256');
+box(bx+70,80,bz+55,bw-140,970,bd-110,'#b69a75');
+box(bx+95,180,bz+35,bw-190,760,26,'#8d6b48');
+box(bx+95,220,bz+8,bw-190,34,28,'#d1b38a');
+for(const sx of [560,1230,1900]){
+box(sx,940,bz+bd+35,280,45,280,'#a98256');
+box(sx+125,0,bz+bd+145,30,940,30,'#5d665f');
+box(sx+65,0,bz+bd+85,150,24,24,'#5d665f');
+}
+}
+if(state.roof){
+const roofStart=shapes.length; const z0=-80,z1=2940;
+if(pitch<0)face([[-250,roofTop(z0),z0],[2970,roofTop(z0),z0],[2970,roofTop(z1),z1],[-250,roofTop(z1),z1]],'#9a9e8c');
+for(let x=-250;x<2970;x+=80){let end=Math.min(x+80,2970),profile=[[x,30],[Math.min(x+15,end),30],[Math.min(x+15,end),50],[Math.min(x+55,end),50],[Math.min(x+55,end),30],[end,30]];
+for(let i=0;i<5;i++){let[a,ah]=profile[i],[b,bh]=profile[i+1];face([[a,roofTop(z0)+ah,z0],[b,roofTop(z0)+bh,z0],[b,roofTop(z1)+bh,z1],[a,roofTop(z1)+ah,z1]],i===1?'#77826e':i===3?'#afb59d':'#959f88','#66745235');}
+for(const z of [z0,z1])face([[x,roofTop(z),z],...profile.map(([a,h])=>[a,roofTop(z)+h,z]),[end,roofTop(z),z]],'#7b8973');
+}
+for(const x of [-250,2970])face([[x,roofTop(z0),z0],[x,roofTop(z1),z1],[x,roofTop(z1)+30,z1],[x,roofTop(z0)+30,z0]],'#7b8973');
+}
+}
+function draw(){if(!W)return;ctx.clearRect(0,0,W,H);if(state.interior){ctx.fillStyle='#e5eeec';ctx.fillRect(0,0,W,H)}if(!state.interior)for(let x=-700;x<=3500;x+=350)line([[x,-1023,-500],[x,-1023,3300]],'#b3c5b831');if(!state.interior)for(let z=-500;z<=3300;z+=350)line([[-700,-1023,z],[3500,-1023,z]],'#b3c5b831');build();shapes.sort((a,b)=>(a.layer||0)-(b.layer||0)||b.d-a.d);for(const s of shapes){ctx.beginPath();s.p.map(project).forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.closePath();ctx.fillStyle=s.color;ctx.fill();if(s.stroke){ctx.strokeStyle=s.stroke;ctx.lineWidth=.7;ctx.stroke()}}
+if(state.dimensions&&!state.interior){
+dim([0,-200,-240],[2720,-200,-240],'窗宽2720');
+dim([3070,0,0],[3070,0,1350],'东窗1350');text([-200,700,1700],'西侧 · 整面实墙');if(!state.roof){dim([1360,1780,110],[1360,1780,310],'纱帘槽200');text([1360,1700,850],'吊顶与屋顶同坡');}
+dim([3070,-950,0],[3070,0,0],'墙950');dim([3070,0,0],[3070,1490,0],'主窗1490');dim([3070,1490,0],[3070,1490+state.transom,0],'型材'+state.transom);
+text([1400,-1000,-550],'北 · 低端');
+text([1400,1810+state.transom+state.drop,2940],'南 · 室内墙面');
+if(state.roof){
+dim([-250,1810+state.transom,-150],[2970,1810+state.transom,-150],'板宽3220');
+dim([-500,1810+state.transom,-80],[-500,1810+state.transom,2940],'板长3020');
+let a=[2150,1490+state.transom+state.drop*2500/1350+100,2500],b=[2150,1500+state.transom,100];
+line([a,b],'#178e9c',3);let p=project(a),q=project(b),ang=Math.atan2(q[1]-p[1],q[0]-p[0]);ctx.beginPath();ctx.moveTo(q[0],q[1]);ctx.lineTo(q[0]-13*Math.cos(ang-.45),q[1]-13*Math.sin(ang-.45));ctx.moveTo(q[0],q[1]);ctx.lineTo(q[0]-13*Math.cos(ang+.45),q[1]-13*Math.sin(ang+.45));ctx.stroke();text([2150,1660+state.transom+state.drop,1400],'排水 · 板厚50','#178e9c');}
+}
+
+}
+function resize(){let r=canvas.getBoundingClientRect();W=r.width;H=r.height;let d=window.devicePixelRatio||1;canvas.width=W*d;canvas.height=H*d;ctx.setTransform(d,0,0,d,0,0);draw()}
+new ResizeObserver(resize).observe(canvas);
+canvas.addEventListener('pointerdown',e=>{drag=[e.clientX,e.clientY];canvas.setPointerCapture(e.pointerId)});canvas.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag[0],dy=e.clientY-drag[1];if(state.interior){interiorYaw-=dx*.006;interiorPitch=Math.max(-.8,Math.min(.8,interiorPitch+dy*.003));}else{yaw-=dx*.008;pitch=Math.max(-.3,Math.min(1.52,pitch+dy*.006));}drag=[e.clientX,e.clientY];document.querySelectorAll('[data-view]').forEach(b=>b.classList.remove('active'));draw()});canvas.addEventListener('pointerup',()=>drag=null);canvas.addEventListener('pointercancel',()=>drag=null);canvas.addEventListener('wheel',e=>{e.preventDefault();zoom=Math.max(.55,Math.min(2.2,zoom*Math.exp(-e.deltaY*.001)));draw()},{passive:false});
+document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>{state.interior=b.dataset.view==='interior';let v={interior:[0,0],perspective:[-.58,.42],front:[0,0],side:[Math.PI/2,0],top:[0,1.52]}[b.dataset.view];[yaw,pitch]=v;interiorYaw=0;interiorPitch=0;zoom=1;document.querySelectorAll('[data-view]').forEach(a=>a.classList.toggle('active',a===b));draw()});
+$('curtainOpen').oninput=e=>{state.curtainOpen=+e.target.value;$('curtainValue').textContent=state.curtainOpen+'%';draw()};
+$('eastOpening').oninput=e=>{state.eastOpening=+e.target.value;$('eastValue').textContent=state.eastOpening+'%';draw()};
+$('opening').oninput=e=>{state.opening=+e.target.value;$('openValue').textContent=state.opening+'%';draw()};$('drop').oninput=e=>{state.drop=+e.target.value;$('dropValue').textContent=state.drop+' mm';$('slopeValue').textContent='坡度 '+(state.drop/1350*100).toFixed(1)+'%';draw()};for(const id of ['roof','dimensions','walls','ceiling','bar','curtains'])$(id).onchange=e=>{state[id]=e.target.checked;draw()};$('finish').onchange=e=>{state.finish=e.target.value;draw()};$('reset').onclick=()=>{state.curtains=true;state.curtainOpen=65;$('curtains').checked=true;$('curtainOpen').value=65;$('curtainValue').textContent='65%';state.opening=0;state.eastOpening=0;$('eastOpening').value=0;$('eastValue').textContent='0%';state.drop=90;state.walls=true;$('walls').checked=true;state.roof=true;state.ceiling=true;state.bar=true;$('ceiling').checked=true;$('bar').checked=true;state.dimensions=true;state.finish='graphite';$('opening').value=0;$('openValue').textContent='0%';$('drop').value=90;$('dropValue').textContent='90 mm';$('slopeValue').textContent='坡度 6.7%';$('roof').checked=true;$('dimensions').checked=true;$('finish').value='graphite';document.querySelector('[data-view="perspective"]').click()};
+window.sunroom={state,project,draw};
+})();
+</script></body></html>
+
